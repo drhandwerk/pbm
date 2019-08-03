@@ -1,4 +1,4 @@
-# pbm
+# ME-PBM
 Population balance modeling code associated with paper
 
 - First run TEMdata.m
