@@ -169,5 +169,5 @@ for j = N+2:maxsize % Large particles
     dn(j) = k3.*n(1).*(r(j-1).*n(j-1).*(j-1) - r(j).*n(j).*j);
 end
 dn(maxsize+1) = k2.*n(1).*(r(maxsize).*n(maxsize).*(maxsize)); % keep track of losses 'off-screen'.
-dn(maxsize+2) = kf.*n(1).*S^2 - kb.*n(2).*n(maxsize+2) + k1.*n(1).*n(2).^2 + k2.*n(1).*sum(r(3:maxsize).*n(3:maxsize)'.*(3:maxsize)); % POM
+dn(maxsize+2) = kf.*n(1).*S^2 - kb.*n(2).*n(maxsize+2) + k1.*n(1).*n(2).^2 + k2.*n(1).*sum(r(3:N).*n(3:N)'.*(3:N)) + k3.*n(1).*sum(r(N+1:maxsize).*n(N+1:maxsize)'.*(N+1:maxsize)); % POM
 end
