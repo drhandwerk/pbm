@@ -23,7 +23,8 @@ switch mech
     case '2step'
         Kargs = [0.0067; 2524];
     case '3step_alt'
-        Kargs = [65024; 16046; 5787; 197];
+        % Kargs = [65024; 16046; 5787; 197]; % Published
+        Kargs = [65536; 16526; 5635; 274]; % Corrected
     otherwise
         error('Incorrect mechanism name.')
 end
