@@ -1,0 +1,163 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>How To Run MEPBM Code</title><meta name="generator" content="MATLAB 9.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-11-18"><meta name="DC.source" content="README.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>How To Run MEPBM Code</h1><!--introduction--><div><ul><li>Navigate to your <tt>../mepbm/src/</tt> directory.</li><li>Load your data by running <tt>TEMdata.m</tt> which saves the data to the workspace and creates <tt>mat</tt> files in the <tt>./data/</tt> directory.</li><li>Choose an option below.</li></ul></div><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Run a single simulation</a></li><li><a href="#2">Plot a solution</a></li><li><a href="#3">Run a fit</a></li></ul></div><h2 id="1">Run a single simulation</h2><p>First set the parameter values, then run the simulation.</p><p>The solution <tt>sol</tt> and a log of the parameters will be saved in a folder created with the date and time the simulation was run.</p><p>The folder name is <tt>./sim_logs/yyyy-MM-dd_HH-mm-ss/</tt>, the parameters are saved in <tt>params.log</tt> and the solution as a <tt>mat</tt> file.</p><pre class="codeinput"><span class="comment">% Set parameter values</span>
+mech = <span class="string">'3step_alt'</span>;
+kargs = [11.3; 3.6e-2; 7.27e4; 64512; 16294; 5566; 274];
+ic = 0.0012;
+tend = 5.05;
+maxsize = 2500;
+
+<span class="comment">% Run the simulation</span>
+sol = solve_mepbm(mech,kargs,ic,tend,maxsize);
+</pre><h2 id="2">Plot a solution</h2><p>Once you have <tt>sol</tt>, you can plot it against your precursor concentration with <tt>plot_precursor(pcdata,sol)</tt> or against histogram data with <tt>plot_histogram(sol,histdata,maxsize,time)</tt></p><pre class="codeinput">plot_precursor(CH,sol)
+plot_histogram(sol,S2,maxsize,0.918)
+plot_histogram(sol,S5,maxsize,4.818)
+</pre><img vspace="5" hspace="5" src="README_01.png" alt=""> <img vspace="5" hspace="5" src="README_02.png" alt=""> <img vspace="5" hspace="5" src="README_03.png" alt=""> <h2 id="3">Run a fit</h2><p>Use the function <tt>fit_mepbm(mech,kconst,kvar,ic_in,tend,maxsize,fit_type,fit_data,lb,ub,options)</tt> which has the same outputs as <a href="https://www.mathworks.com/help/gads/patternsearch.html"><tt>patternsearch</tt></a>.</p><p>The rhs parameters must be split into <tt>kconst</tt> and <tt>kvar</tt>. Fitting is done over <tt>kvar</tt>. This requires the rhs function in the <tt>mepbm_rhs.m</tt> file to have arguments in the correct order.</p><p><tt>fit_type</tt> is <tt>'precursor'</tt> or <tt>'histogram'</tt>, with approriate <tt>fit_data</tt>.</p><p>For example: <tt>rhs_3step_alt(~,n,S,kf,kb,k1,k2,k3,M)</tt>. <tt>kconst = [S,kf,kb]</tt> and <tt>kvar = [k1,k2,k3,M]</tt> will fit over the ki's and M.</p><p>The lower and upper bound constraints <tt>lb</tt> and <tt>ub</tt>, and <tt>options</tt> are optional arguements. The bounds must be given for <tt>options</tt> to be given.</p><p>The default behavior is <tt>lb = [0,...,0]</tt>, <tt>ub = [Inf,...,Inf]</tt>, <tt>options = optimoptions('patternsearch','Display','iter','PlotFcn',@psplotbestf,'MaxIterations',120,'CompletePoll','On')</tt>.</p><p>The fit is logged in a folder <tt>./fit_logs/yyyy-MM-dd_HH-mm-ss/</tt>. The initial parameters are saved in <tt>fit.log</tt> and each successive <tt>kvar</tt> is saved in <tt>params.log</tt>.</p><pre class="codeinput">kconst = kargs(1:3);
+kvar = kargs(4:7);
+lb = [4.8e4; 10; 10; 10];
+ub =[8e4; 60000; 60000; 2000];
+options = optimoptions(<span class="string">'patternsearch'</span>,<span class="string">'Display'</span>,<span class="string">'iter'</span>,<span class="string">'PlotFcn'</span>,@psplotbestf,<span class="string">'MaxIterations'</span>,1,<span class="string">'CompletePoll'</span>,<span class="string">'Off'</span>);
+[k,fval,exitflag,output] = fit_mepbm(mech,kconst,kvar,ic,tend,maxsize,<span class="string">'precursor'</span>,CH,lb,ub,options);
+</pre><pre class="codeoutput">
+
+Iter     Func-count       f(x)      MeshSize     Method
+    0           1     0.00216622             1      
+    1           5     0.00212239             2     Successful Poll
+    2           9     0.00200498             4     Successful Poll
+Maximum number of iterations exceeded: increase options.MaxIterations.
+</pre><img vspace="5" hspace="5" src="README_04.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% How To Run MEPBM Code
+% * Navigate to your |../mepbm/src/| directory.
+% * Load your data by running |TEMdata.m| which saves the data to the
+% workspace and creates |mat| files in the |./data/| directory.
+% * Choose an option below.
+
+%% Run a single simulation
+% First set the parameter values, then run the simulation.
+%
+% The solution |sol| and a log of the parameters will be saved in a folder created
+% with the date and time the simulation was run.
+%
+% The folder name is |./sim_logs/yyyy-MM-dd_HH-mm-ss/|, the parameters
+% are saved in |params.log| and the solution as a |mat| file.
+
+% Set parameter values
+mech = '3step_alt';
+kargs = [11.3; 3.6e-2; 7.27e4; 64512; 16294; 5566; 274];
+ic = 0.0012;
+tend = 5.05;
+maxsize = 2500;
+
+% Run the simulation
+sol = solve_mepbm(mech,kargs,ic,tend,maxsize);
+
+%% Plot a solution
+% Once you have |sol|, you can plot it against your precursor concentration
+% with |plot_precursor(pcdata,sol)| or against histogram data with
+% |plot_histogram(sol,histdata,maxsize,time)|
+plot_precursor(CH,sol) 
+plot_histogram(sol,S2,maxsize,0.918)
+plot_histogram(sol,S5,maxsize,4.818)
+
+%% Run a fit
+% Use the function
+% |fit_mepbm(mech,kconst,kvar,ic_in,tend,maxsize,fit_type,fit_data,lb,ub,options)|
+% which has the same outputs as
+% <https://www.mathworks.com/help/gads/patternsearch.html |patternsearch|>.
+%
+% The rhs parameters must be split into |kconst| and |kvar|. Fitting is
+% done over |kvar|. This requires the rhs function in the |mepbm_rhs.m|
+% file to have arguments in the correct order.
+%
+% |fit_type| is |'precursor'| or |'histogram'|, with approriate |fit_data|.
+%
+% For example: |rhs_3step_alt(~,n,S,kf,kb,k1,k2,k3,M)|. |kconst =
+% [S,kf,kb]| and |kvar = [k1,k2,k3,M]| will fit over the ki's and M.
+%
+% The lower and upper bound constraints |lb| and |ub|, and |options| are
+% optional arguements. The bounds must be given for |options| to be given.
+%
+% The default behavior is |lb = [0,...,0]|, |ub = [Inf,...,Inf]|, |options =
+% optimoptions('patternsearch','Display','iter','PlotFcn',@psplotbestf,'MaxIterations',120,'CompletePoll','On')|.
+%
+% The fit is logged in a folder |./fit_logs/yyyy-MM-dd_HH-mm-ss/|. The
+% initial parameters are saved in |fit.log| and each successive |kvar| is
+% saved in |params.log|.
+
+kconst = kargs(1:3);
+kvar = kargs(4:7);
+lb = [4.8e4; 10; 10; 10]; 
+ub =[8e4; 60000; 60000; 2000];
+options = optimoptions('patternsearch','Display','iter','PlotFcn',@psplotbestf,'MaxIterations',1,'CompletePoll','Off');
+[k,fval,exitflag,output] = fit_mepbm(mech,kconst,kvar,ic,tend,maxsize,'precursor',CH,lb,ub,options);
+
+
+##### SOURCE END #####
+--></body></html>
