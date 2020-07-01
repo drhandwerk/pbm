@@ -7,11 +7,15 @@ fprintf(f,'%% Initial values:\n');
 fprintf(f,'fit_type = ''%s'';\n',fit_type);
 fprintf(f,'mech = ''%s'';\n',mech);
 
-fprintf(f,'kconst = [');
-for i = 1:size(kconst)-1
-    fprintf(f,'%g; ',kconst(i));
+if isempty(kconst)
+    fprintf(f,'kconst = []\n');
+else
+    fprintf(f,'kconst = [');
+    for i = 1:size(kconst)-1
+        fprintf(f,'%g; ',kconst(i));
+    end
+    fprintf(f,'%g];\n',kconst(end));
 end
-fprintf(f,'%g];\n',kconst(end));
 
 fprintf(f,'kvar = [');
 for i = 1:size(kvar)-1
