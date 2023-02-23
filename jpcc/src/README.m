@@ -27,7 +27,7 @@ sol = solve_mepbm(mech,kargs,ic,tend,maxsize);
 % Once you have |sol|, you can plot it against your precursor concentration
 % with |plot_precursor(pcdata,sol)| or against histogram data with
 % |plot_histogram(sol,histdata,maxsize,time)|
-plot_precursor(CH,sol) 
+plot_precursor(sol,CH) 
 plot_histogram(sol,S2,maxsize,0.918)
 plot_histogram(sol,S5,maxsize,4.818)
 
