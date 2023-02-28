@@ -57,7 +57,7 @@ append_log_params(k,fval,dirID,timeID)
     end
 
     function d = precursor_obj(kvar)
-        append_log_fit(kvar,dirID);
+        append_log_fit(kvar,dirID,timeID);
         sol = solve_mepbm(mech,[kconst; kvar],ic_in,tend,maxsize);
         f = deval(sol,fit_data(:,1));
         d = norm(fit_data(:,2)./1375 - f(1,:)');
