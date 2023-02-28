@@ -321,3 +321,4 @@ end
 dn(maxsize+1) = k4.*n(1).*(r(maxsize).*n(maxsize).*(maxsize)); % keep track of losses 'off-screen'. TODO add off screen B+C terms
 end
 
+end
